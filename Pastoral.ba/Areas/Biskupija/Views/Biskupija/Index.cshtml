@@ -1,0 +1,12 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Biskupije</h1>
+<ul>
+    @foreach (var diocese in Model)
+    {
+        <li>@diocese.Name</li>
+    }
+</ul>

@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Pastoral.ba.Models.ApplicationUser> UserManager
+
+@{
+    // Dohvaćanje trenutnog korisnika
+    var user = await UserManager.GetUserAsync(User);
+}
+
+@if (user != null)
+{
+    <h1>Hvaljen Isus i Marija!</h1>
+    <p>
+        Prijavljeni ste kao @user.PunoIme. <br />
+        Trenutno Vam nisu dodjeljene uloge, pa Vas molimo da kontaktirate administratora, <br />
+        kako bi mogli nastaviti koristiti aplikaciju. <br />
+        Hvala na razumijevanju!</p>
+    <br />
+
+    <h3>Vaši podaci</h3>
+    <p>Email: @user.Email</p>
+    <p>JMBG: @user.JMBG</p>
+    <br />
+    <h3>Administrator</h3>
+    <p>Email: info@pastoral.ba</p>
+    <p>Telefon: +46 76 766 05 54</p>
+}
+else
+{
+    <h1>Dobrodošli, goste!</h1>
+    <p>Molimo prijavite se da biste vidjeli svoje podatke.</p>
+    <a href="/Identity/Account/Login">Prijava</a>
+}

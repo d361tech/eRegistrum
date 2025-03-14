@@ -1,0 +1,73 @@
+﻿@page
+@model LoginModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewData["Title"] = "Prijava na sustav";
+}
+
+<body>
+    <div class="d-flex vh-100">
+        <!-- Lijeva strana: Login forma (30%) -->
+        <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center bg-light">
+            <!-- Logo iznad kartice -->
+            <div class="mb-2 text-center">
+                <a href="https://app.pastoral.ba">
+                    <img src="~/images/logos/logo.svg" alt="Logo" style="max-width: 25%; height:auto;">
+                </a>
+            </div>
+
+            <!-- Kartica s formom -->
+            <div class="card w-75 mt-2 pt-2">
+                <div class="card-body mt-0 pt-4">
+                    <form id="account" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                        <!-- JMBG ili OIB input -->
+                        <div class="mb-3 row align-items-center">
+                            <label for="JMBGorOIB" class="col-sm-3 col-form-label text-start fw-bolder">JMBG/OIB</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Input.JMBGorOIB" class="form-control" autocomplete="username" aria-required="true" placeholder="Unesite JMBG ili OIB" />
+                                <span asp-validation-for="Input.JMBGorOIB" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Lozinka input -->
+                        <div class="mb-4 row align-items-center">
+                            <label for="Password" class="col-sm-3 col-form-label text-start fw-bolder">Lozinka</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Input.Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Unesite lozinku" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Zapamti me i korisnička podrška -->
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <a class="text-body-emphasis fw-bold text-decoration-underline" href="mailto:info@pastoral.ba">Korisnička podrška</a>
+                            <div class="form-check">
+                                <input class="form-check-input primary" asp-for="Input.RememberMe" />
+                                <label asp-for="Input.RememberMe" class="form-check-label">Zapamti me</label>
+                            </div>
+                        </div>
+
+                        <!-- Prijava gumb -->
+                        <div class="text-end">
+                            <button id="login-submit" type="submit" class="btn btn-dark w-100 py-1 fs-5 mb-1">Prijavi se</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <p class="col-10 text-center">Sva prava pridržana. <br />Aplikacija je registrirana u Institutu za intelektualno vlasništvo i nije dozvoljeno kopirati ni jedan dio bez dozvole vlasnika!<br /><br />2025. © eRegistrum </p>
+        </div>
+
+        <!-- Desna strana: Slika (70%) -->
+        <div class="col-lg-8 d-none d-lg-block p-0">
+            <img src="~/images/backgrounds/background2.jpg" alt="Background Image" class="img-fluid vh-100 w-100 object-fit-cover">
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

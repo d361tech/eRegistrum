@@ -1,0 +1,34 @@
+﻿@model Pastoral.ba.Models.ApplicationUser
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Uredi korisnika";
+}
+
+<h2>Uredi korisnika</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input asp-for="Email" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label>Puno ime</label>
+        <input asp-for="PunoIme" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>JMBG</label>
+        <input asp-for="JMBG" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>OIB</label>
+        <input asp-for="OIB" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Spremi promjene</button>
+</form>

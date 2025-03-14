@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Pastoral.ba.Models.ApplicationUser>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Pregled korisnika";
+}
+
+<h2>Pregled korisnika</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Puno ime</th>
+            <th>JMBG / OIB</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.PunoIme</td>
+                <td>@(string.IsNullOrEmpty(user.JMBG) ? user.OIB : user.JMBG)</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Users", new { area = "Admin", id = user.Id })" class="btn btn-sm btn-warning">Uredi</a>
+
+                    <form asp-action="Delete" asp-controller="Users" asp-area="Admin" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@user.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Jeste li sigurni da želite obrisati korisnika?');">Obriši</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

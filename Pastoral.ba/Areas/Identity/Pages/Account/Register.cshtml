@@ -1,0 +1,121 @@
+﻿@page
+@model RegisterModel
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Dodavanje novog korisnika";
+}
+<div class="row">
+    <div class="col-lg-12 d-flex align-items-strech">
+        <div class="card w-100">
+            <div class="card-body">
+                <div class="col-md-12">
+                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                        <!-- Odabir države -->
+                        <div class="mb-3 row align-items-center">
+                            <label for="Drzava" class="col-sm-3 col-form-label text-start fw-bolder">Biskupska konferencija</label>
+                            <div class="col-sm-9">
+                                <select asp-for="Input.BK" class="form-control" aria-required="true" id="drzavaSelect">
+                                    <option value="">Odaberite BK</option>
+                                    <option value="BKBiH">Biskupska konferencija BiH</option>
+                                    <option value="HBK">Hrvatska biskupska konferencija</option>
+                                </select>
+                                <span asp-validation-for="Input.BK" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- JMBG polje (prikazuje se samo za BiH) -->
+                        <div class="mb-3 row align-items-center" id="jmbgField" style="display: none;">
+                            <label for="JMBG" class="col-sm-3 col-form-label text-start fw-bolder">JMBG</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Input.JMBG" class="form-control" placeholder="Unesite JMBG" />
+                                <span asp-validation-for="Input.JMBG" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- OIB polje (prikazuje se samo za RH) -->
+                        <div class="mb-3 row align-items-center" id="oibField" style="display: none;">
+                            <label for="OIB" class="col-sm-3 col-form-label text-start fw-bolder">OIB</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Input.OIB" class="form-control" placeholder="Unesite OIB" />
+                                <span asp-validation-for="Input.OIB" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row align-items-center">
+                            <label for="PunoIme" class="col-sm-3 col-form-label text-start fw-bolder">Ime i prezime</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Input.PunoIme" class="form-control" placeholder="Unesite ime i prezime" />
+                                <span asp-validation-for="Input.PunoIme" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row align-items-center">
+                            <label for="Email" class="col-sm-3 col-form-label text-start fw-bolder">Email</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Input.Email" class="form-control" placeholder="Unesite email" />
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row align-items-center">
+                            <label for="Password" class="col-sm-3 col-form-label text-start fw-bolder">Lozinka</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Input.Password" type="password" class="form-control" placeholder="Unesite lozinku" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3 row align-items-center">
+                            <label for="ConfirmPassword" class="col-sm-3 col-form-label text-start fw-bolder">Ponovite lozinku</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Input.ConfirmPassword" type="password" class="form-control" aria-required="true" placeholder="Ponovite unos lozinke" />
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3 row align-items-center">
+                            <label for="Role" class="col-sm-3 col-form-label text-start fw-bolder">Uloga</label>
+                            <div class="col-sm-9">
+                                <select asp-for="Input.Role" class="form-control">
+                                    <option value="">Odaberite ulogu</option>
+                                    @foreach (var role in Model.Roles)
+                                    {
+                                        <option value="@role.Name">@role.Name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="Input.Role" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <button id="registerSubmit" type="submit" class="mt-2 btn btn-dark">Izradi korisnika</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const drzavaSelect = document.getElementById("drzavaSelect");
+            const jmbgField = document.getElementById("jmbgField");
+            const oibField = document.getElementById("oibField");
+
+            drzavaSelect.addEventListener("change", function () {
+                if (this.value === "BKBiH") {
+                    jmbgField.style.display = "flex";
+                    oibField.style.display = "none";
+                } else if (this.value === "HBK") {
+                    jmbgField.style.display = "none";
+                    oibField.style.display = "flex";
+                } else {
+                    jmbgField.style.display = "none";
+                    oibField.style.display = "none";
+                }
+            });
+        });
+    </script>
+}
