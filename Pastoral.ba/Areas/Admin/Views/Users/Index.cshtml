@@ -7,6 +7,11 @@
 
 <h2>Pregled korisnika</h2>
 
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">@TempData["Error"]</div>
+}
+
 <table class="table table-bordered">
     <thead>
         <tr>

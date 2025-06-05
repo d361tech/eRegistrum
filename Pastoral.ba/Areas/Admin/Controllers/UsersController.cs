@@ -102,6 +102,12 @@ namespace Pastoral.ba.Areas.Admin.Controllers
             if (!result.Succeeded)
             {
                 _logger.LogError("Greška prilikom brisanja korisnika.");
+                var errorMessage = string.Join(" ", result.Errors.Select(e => e.Description));
+                if (string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    errorMessage = "Greška prilikom brisanja korisnika.";
+                }
+                TempData["Error"] = errorMessage;
                 return RedirectToAction("Index");
             }
 
